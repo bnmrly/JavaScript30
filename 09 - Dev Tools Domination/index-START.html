@@ -19,27 +19,101 @@
 
     // Regular
 
+    console.log("hello");
+
     // Interpolated
+
+// Can use back ticks instead of above
 
     // Styled
 
+    console.log("%c Hello world in red", 'color: yellow');
+
     // warning!
+
+    console.warn('OH NOOOO');
 
     // Error :|
 
+    console.error('shit!');
+
     // Info
+
+    console.info('Crocodiles eat 3 - 4 people per year');
 
     // Testing
 
+    const p = document.querySelector('p');
+    
+    console.assert(1 == 2);
+
     // clearing
 
-    // Viewing DOM Elements
+    // console.clear();
 
-    // Grouping together
+    // Viewing DOM Elements - use dir and view all of the available methods
+
+    console.dir(p);
+
+    console.clear();
+
+    // Grouping together - not collapsed
+
+    dogs.forEach(dog => {
+      console.group(`${dog.name}`);
+      console.log(`${dog.name} is ${dog.age} years old`);
+      console.log(`${dog.name} is ${dog.age * 7} dog years old`);
+      console.groupEnd(`${dog.name}`)
+    });
+    
+     // Grouping together - collapsed
+
+       dogs.forEach(dog => {
+      console.groupCollapsed(`${dog.name}`);
+      console.log(`${dog.name} is ${dog.age} years old`);
+      console.log(`${dog.name} is ${dog.age * 7} dog years old`);
+      console.groupEnd(`${dog.name}`)
+    })
 
     // counting
 
+    console.count('Wes');
+    console.count('Wes');
+    console.count('Wes');
+    console.count('Wes');
+    console.count('Steve');
+    console.count('Wes');
+    console.count('Steve');
+    console.count('Wes');
+    console.count('Wes');
+    console.count('Steve');
+    console.count('Wes');
+    console.count('Wes');
+    console.count('Wes');
+    console.count('Steve');
+    console.count('Wes');
+    console.count('Wes');
+    console.count('Steve');
+    console.count('Wes');
+    console.count('Wes');
+    console.count('Wes');
+
     // timing
+    
+    console.clear();
+
+    console.time('fetching data');
+    fetch('https://api.github.com/users/bnmrly')
+    .then(data => data.json())
+    .then(data => {
+      console.timeEnd('fetching data')
+      console.log(data);
+    })
+
+  // table
+    
+    console.table(dogs);
+
 
   </script>
 </body>
