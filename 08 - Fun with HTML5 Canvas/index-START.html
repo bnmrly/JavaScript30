@@ -7,6 +7,70 @@
 <body>
 <canvas id="draw" width="800" height="800"></canvas>
 <script>
+const canvas = document.querySelector('#draw');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+ctx.strokeStyle = '#33cccc';
+ctx.lineJoin = 'round';
+ctx.lineCap = 'round';
+ctx.lineWidth = 100;
+// ctx.globalCompositeOperation = 'multiply';
+ctx.globalCompositeOperation = 'lighten';
+// create flag which is true when down and false when up
+let isDrawing = false;
+let lastX = 0;
+let lastY = 0;
+let hue = 0;
+let direction = true;
+
+// this fn sets up the click and drag functionality, it is only invoked when isDrawing is toggled to true
+function draw(e) {
+  if (!isDrawing) return; // stop fn from running when they are not moused down
+  console.log(e);
+  ctx.strokeStyle = `hsl(${hue}, 100%,  50% )`;
+  ctx.beginPath();
+  // start frtom
+  ctx.moveTo(lastX, lastY);
+  // go to
+  ctx.lineTo(e.offsetX, e.offsetY);
+  ctx.stroke();
+  // update lastX and lastY variables to be wherever they were, without this, it's starting top left and ending where mousedown stops!
+// lastX = e.offsetX;
+// lastY = e.offsetY;
+
+// can destructure the above variables like below:
+[lastX ,lastY] = [e.offsetX, e.offsetY];
+
+hue++;
+// reset hue
+if (hue >= 360) {
+  hue = 0;
+}
+
+// flip boolean
+if (ctx.lineWidth >= 100 || ctx.lineWidth <= 1) {
+  direction = !direction;
+}
+
+// increments lineWidth to 100 then decrements, depending on the linewidth toggle
+if (direction) {
+  ctx.lineWidth++;
+  } else {
+  ctx.lineWidth--;
+}
+}
+
+// before we mousedown we update lastX and lastY with where we want to go rather than starting at 0 and 0
+canvas.addEventListener('mousedown', (e) => {
+  isDrawing = true;
+  [lastX ,lastY] = [e.offsetX, e.offsetY];
+});
+canvas.addEventListener('mousemove', draw);
+canvas.addEventListener('mouseup', () => isDrawing = false);
+canvas.addEventListener('mouseout', () => isDrawing = false);
+
+
 </script>
 
 <style>
